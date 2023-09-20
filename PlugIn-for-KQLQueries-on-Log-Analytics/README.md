@@ -3,6 +3,7 @@
 In this blog post, we will walk through the process of creating a semantic function-based solution that can accept a string like "please share all sign-in locations?" and generate a KQL (Kusto Query Language) query. This query will be used to retrieve log analytics data from the signin table.
 
 ## Step 1: Setting up enviornment 
+
 ### Pre-requisite
 - Visual studio code
 Please install below extension
@@ -14,7 +15,7 @@ Please install below extension
 Please install below packages
     - PIP
     - semantic-kernel
-- [Download](https://github.com/vivekgarudi/Semantic-Kernal-Azure/tree/main/PlugIn-for-KQLQueries-on-Log-Analytics) the content of repo
+- [Download](https://github.com/vivekgarudi/Semantic-Kernal-Azure/tree/main/PlugIn-for-KQLQueries-on-Log-Analytics) the content of github repo
 
 ## Step 2: Define the Semantic Function to genrate KQL query
 
@@ -22,6 +23,7 @@ Now that you have below mentioned folder structure
 ![Alt text](../.media/image.png)
 
 ### Create Semantic function
+
 The first step is to define a semantic function that can interpret the input string and map it to a specific action. In our case, the action is to generate a KQL query. The function could look something like this:
  1. Create folder structure and declare 
     - Create /plugins folder
@@ -32,7 +34,7 @@ The first step is to define a semantic function that can interpret the input str
         'config.json' with below JSON content for more details on content refer here.
 
         `
-        
+
             {
                 "schema": 1,
                 "description": "Create KQL query for Signin table",
@@ -58,7 +60,7 @@ The first step is to define a semantic function that can interpret the input str
         In above file, we are defining semantic function which accept 'input' parameter to perform "Create KQL query for Signin table" as mentioned in Description section
     - Now lets put the multi-shot prompt for our semantic function in 'skprompt.txt'. where '{{input}}' where our input ask would be replaced.
 
-        ` 
+        `
 
             Given an input question, first create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer.
             Use the following format:
@@ -85,9 +87,11 @@ The first step is to define a semantic function that can interpret the input str
 
             Question: {{$input}}
             Answer:
+
         `
 
 ### Execute above semantic function function in action.
+
    - Rename ".env.example' as '.env' and update the parameters with actual values
    - Open open notebook "PlugIn-for-KQLQueries-on-Log-Analytics" in visula studio code and follow the steps mentioned to test
         - Step 1 Install all python libraries
@@ -153,6 +157,7 @@ The first step is to define a semantic function that can interpret the input str
                 print(resultFD)
             `
 ### Create native function to execute this query again Log analytics 
+
     - Create file "native_function.py" under "AzureMonitor"or [download](./plugins/AzureMonitor/native_function.py) the file from repo.
     - Copy the code base and update log analytics workspace ID at "XXX-XXX-XXX". you can access this as context parameter but for similicity of this excercise, we kept it as hardcoded.please find below code flow
         - Importing python packages

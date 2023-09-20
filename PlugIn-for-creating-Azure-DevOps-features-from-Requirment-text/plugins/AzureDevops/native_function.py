@@ -14,8 +14,11 @@ from azure.devops.connection import Connection
 from msrest.authentication import BasicAuthentication
 import base64
 import requests
-
+from semantic_kernel import ContextVariables, Kernel
+import re
 class feature:
+    def __init__(self, kernel: Kernel):
+        self._kernel = kernel
     @sk_function(
         description="create a Azure DevOps feature with description",
         name="create",
@@ -29,14 +32,31 @@ class feature:
         description="Description of the feature",
     )
     async def create_feature(self, context: SKContext) -> str:
+        feature_title = context["title"]
+        get_feature = self._kernel.skills.get_function("AzureDevOps", "FeatureDescription")
+        #getfeatureContext = (
+        #    await self._kernel.run_async(get_feature, input_str=feature_title)
+        #).result
+        fdetails = get_feature(feature_title)
+        # Define a regular expression pattern to match the feature title
+        pattern = r"Feature Title:\s+(.+)"
+        # Search for the pattern in the input string
+        match = re.search(pattern, str(fdetails))
+        # Check if a match was found
+        if match:
+            feature_title = match.group(1)
+        # Define a regular expression pattern to match the feature description
+        # Split the string into lines
+        lines = str(fdetails).split('\n')
+        lines = [line for index, line in enumerate(lines) if index not in [0]]
+        description = '\n'.join(lines)
         relationPatchList = []
         jsonPatchList = []
-        workObjects = []
-        feature_title = context["title"]
-        description=context["description"]
-        targetOrganizationName= "vigarudi0944"
+        workObjects = []        
+        #description=context["description"]
+        targetOrganizationName= "XXX"
         targetProjectName= "test"
-        targetOrganizationPAT = "mzt352ysyicsfwe75rl2bw3y6jhvu75js3pnraowkmr3e32uy42a"
+        targetOrganizationPAT = "XXXXXX"
         workItemCsvFile= "abc"
         teamName = "test Team"
         areaName = teamName
@@ -83,5 +103,8 @@ class feature:
             ]
         jsonPatchList = JsonPatchOperation(workItemObjects)
         work_client = connection.clients.get_work_item_tracking_client()
-        WorkItemCreation = work_client.create_work_item(jsonPatchList.from_, targetProjectName, "Feature")
-        return "feature created successfully"
+        try:
+            WorkItemCreation = work_client.create_work_item(jsonPatchList.from_, targetProjectName, "Feature")
+        except Exception as e:
+            return feature_title+"Feature created unsuccessfully"
+        return feature_title+" Feature created successfully"

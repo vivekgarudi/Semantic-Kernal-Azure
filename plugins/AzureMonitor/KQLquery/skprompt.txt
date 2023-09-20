@@ -1,12 +1,3 @@
-## Creating a Semantic Function-Based Solution for KQL Queries
-
-In this blog post, we will walk through the process of creating a semantic function-based solution that can accept a string like "please share all sign-in locations?" and generate a KQL (Kusto Query Language) query. This query will be used to retrieve log analytics data from the signin table.
-
-### Step 1: Define the Semantic Function to genrate KQL query
-
-The first step is to define a semantic function that can interpret the input string and map it to a specific action. In our case, the action is to generate a KQL query. The function could look something like this:
-
-'''Semantic Function
 Given an input question, first create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer.
 Use the following format:
 
@@ -32,26 +23,3 @@ Answer:SigninLogs| summarize Successful=countif(ResultType==0), Failed=countif(R
 
 Question: {{$input}}
 Answer:
-'''
-Step 2: Interpret the Input StringThe next step is to interpret the input string. This involves parsing the string and identifying key phrases or words that indicate what kind of data the user is asking for. For example, if the user asks for "all sign-in locations", we know they want data from the signin table.
-
-def interpret_input_string(input_string):
-    # Parse the input string and identify key phrases or words
-    ...
-    return table_name, data_type
-
-Step 3: Generate the KQL QueryOnce we have identified what data the user is asking for, we can generate the appropriate KQL query. This involves using the table name and data type to construct a query that will retrieve the desired data.
-
-def generate_kql_query(table_name, data_type):
-    # Use the table name and data type to construct a KQL query
-    ...
-    return kql_query
-
-Step 4: Retrieve Log Analytics DataThe final step is to use the generated KQL query to retrieve log analytics data. This involves connecting to your log analytics service, executing the query, and returning the results.
-
-def retrieve_log_analytics_data(kql_query):
-    # Connect to your log analytics service, execute the query, and return the results
-    ...
-    return results
-
-By following these steps, you can create a semantic function-based solution that can interpret natural language queries and use them to retrieve specific log analytics data. This can be a powerful tool for making your log analytics more accessible and user-friendly.

@@ -1,0 +1,16 @@
+Identify User stories required to complete feature requirement
+{{$input}}
+in below format
+{
+"User Stories": {[
+{"UserStory" : "[As a [type of user], I want [an action or feature], So that [a goal or value].]",
+ "Description":[Provide additional context or details for the story, if needed.] 
+ "Acceptance Criteria": Given [context or initial state], When [action or event], Then [outcome or result]. }
+{"UserStory" : "[As a [type of user], I want [an action or feature], So that [a goal or value].]",
+ "Description":[Provide additional context or details for the story, if needed.] 
+ "Acceptance Criteria": Given [context or initial state], When [action or event], Then [outcome or result]. },
+{"UserStory" : "[As a [type of user], I want [an action or feature], So that [a goal or value].]",
+ "Description":[Provide additional context or details for the story, if needed.] 
+ "Acceptance Criteria": Given [context or initial state], When [action or event], Then [outcome or result]. }
+...
+}

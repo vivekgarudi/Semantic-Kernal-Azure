@@ -1,0 +1,21 @@
+Create feature title and description for {{$input}}  in below format
+Feature Title:"[Prodive a short title for the feature]"
+Description: "[Provide a more detailed description of the feature's purpose, the problem it addresses, and its significance to the product or project.] 
+ 
+User Needs- 
+[Outline the specific user needs or pain points that this feature aims to address.] 
+ 
+Functional Requirements:-
+- [Requirement 1] 
+- [Requirement 2] 
+- [Requirement 3] 
+- ... 
+ 
+Non-Functional Requirements:-
+- [Requirement 1] 
+- [Requirement 2] 
+- [Requirement 3] 
+- ... 
+ 
+Feature Scope: 
+[Indicates the minimum capabilities that feature should address. Agreed upon between Engineering Leads and Product Mangers] "

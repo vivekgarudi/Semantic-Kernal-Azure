@@ -1,4 +1,4 @@
-# Creating a Semantic Function-Based Solution for KQL Queries
+# Running natural language queries against Log analytics using Semantic function
 
 In this blog post, we will walk through the process of creating a semantic function-based solution that can accept a string like "please share all sign-in locations?" and generate a KQL (Kusto Query Language) query. This query will be used to retrieve log analytics data from the signin table.
 

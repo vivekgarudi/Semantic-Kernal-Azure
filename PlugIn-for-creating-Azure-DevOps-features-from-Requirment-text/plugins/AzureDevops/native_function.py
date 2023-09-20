@@ -1,19 +1,14 @@
-import math
 from semantic_kernel.skill_definition import (
     sk_function,
     sk_function_context_parameter,
 )
-import requests
-import csv
-import json
+
 from semantic_kernel.orchestration.sk_context import SKContext
 from azure.devops.v7_1.py_pi_api import JsonPatchOperation
-import os
-import sys
+
 from azure.devops.connection import Connection
 from msrest.authentication import BasicAuthentication
 import base64
-import requests
 from semantic_kernel import ContextVariables, Kernel
 import re
 class feature:
@@ -34,9 +29,6 @@ class feature:
     async def create_feature(self, context: SKContext) -> str:
         feature_title = context["title"]
         get_feature = self._kernel.skills.get_function("AzureDevOps", "FeatureDescription")
-        #getfeatureContext = (
-        #    await self._kernel.run_async(get_feature, input_str=feature_title)
-        #).result
         fdetails = get_feature(feature_title)
         # Define a regular expression pattern to match the feature title
         pattern = r"Feature Title:\s+(.+)"
@@ -50,9 +42,7 @@ class feature:
         lines = str(fdetails).split('\n')
         lines = [line for index, line in enumerate(lines) if index not in [0]]
         description = '\n'.join(lines)
-        relationPatchList = []
-        jsonPatchList = []
-        workObjects = []        
+        jsonPatchList = [] 
         #description=context["description"]
         targetOrganizationName= "XXX"
         targetProjectName= "test"

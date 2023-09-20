@@ -32,6 +32,7 @@ The first step is to define a semantic function that can interpret the input str
         'config.json' with below JSON content for more details on content refer here.
 
         `
+        
             {
                 "schema": 1,
                 "description": "Create KQL query for Signin table",
@@ -58,6 +59,7 @@ The first step is to define a semantic function that can interpret the input str
     - Now lets put the multi-shot prompt for our semantic function in 'skprompt.txt'. where '{{input}}' where our input ask would be replaced.
 
         ` 
+
             Given an input question, first create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer.
             Use the following format:
 
@@ -91,6 +93,7 @@ The first step is to define a semantic function that can interpret the input str
         - Step 1 Install all python libraries
 
         `
+
             !python -m pip install semantic-kernel
             !python -m pip install azure.monitor
             !python -m pip install pandas
@@ -102,6 +105,7 @@ The first step is to define a semantic function that can interpret the input str
         - Step 2 Import Packages required Prepare a semantic kernel instance first
         
             `
+
                 import os
                 import sys
                 import asyncio
@@ -135,6 +139,7 @@ The first step is to define a semantic function that can interpret the input str
         - Step 3 Importing skills and function from folder
 
             `
+
                 plugins_directory = "./plugins"
                 DevFunctions=kernel1.import_semantic_skill_from_directory(plugins_directory, "AzureMonitor") # import the skill from the folder
                 FDesFunction = DevFunctions["KQLquerySignin"]  # get the semantic function
@@ -143,6 +148,7 @@ The first step is to define a semantic function that can interpret the input str
         - Step 4 calling the semantic function with string
 
             `          
+
                 resultFD = FDesFunction("please share all sign-in location?")
                 print(resultFD)
             `
@@ -154,6 +160,7 @@ The first step is to define a semantic function that can interpret the input str
         - call semantic function 
 
     `
+
         import math
         from semantic_kernel.skill_definition import (
             sk_function,
@@ -228,14 +235,17 @@ The first step is to define a semantic function that can interpret the input str
         -   Step 5 Importing native function
 
             `
+
             from plugins.AzureMonitor.native_function import sloganalytics
             Mon_plugin = kernel.import_skill(sloganalytics(kernel1), skill_name="AzureMonitor") # import the skill
             variables = ContextVariables()
             variables["description"] = "test"
             `
+
         -   Step 6 Executing native function by puting natural language queries in title field
-        
+
             `
+
             variables["title"] = "please share all sign-in location?"
             result = await kernel.run_async( Mon_plugin["slquery"], input_vars=variables )
             print(variables["Df"])

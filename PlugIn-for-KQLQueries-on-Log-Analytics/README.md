@@ -236,6 +236,7 @@ The first step is to define a semantic function that can interpret the input str
        `
 
 ### Lets test this native function as end to end solution
+
     - Lets go back to notebook
         -   Step 5 Importing native function
 
